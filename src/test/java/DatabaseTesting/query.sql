@@ -5,7 +5,7 @@ select EMPLOYEE_ID, FIRST_NAME from EMPLOYEES;
 
 select * from EMPLOYEES;
 
--- select unique data using distintc keyword
+-- select unique data using distinct keyword
 select distinct FIRST_NAME from EMPLOYEES;
 
 -- condition   use where keyword
@@ -14,7 +14,7 @@ where SALARY > 6000;
 
 -- we have >, <, >=, <=, <>not equal , != not equal again
 -- and or
--- %    or   _ udnerscore
+-- %    or   _ underscore
 
 select FIRST_NAME, SALARY from EMPLOYEES
 where SALARY <> 10000 ;
@@ -58,12 +58,16 @@ order by SALARY;
 select FIRST_NAME, SALARY from EMPLOYEES
 order by SALARY desc;
 
--- aggragate functions
+-- aggregate functions
 -- min, max, avg, sum
 select min(SALARY), max(SALARY), avg(SALARY),sum(SALARY) from EMPLOYEES;
-select min(SALARY), max(SALARY), round(avg(SALARY),2),sum(SALARY) from EMPLOYEES;
+
+-- To control the number of decimal places returned by the SUM function in the queries you can use the ROUND function.
+select min(SALARY), max(SALARY), round(avg(SALARY),3),sum(SALARY) from EMPLOYEES;
 
 -- group by  and having
+    -- the 'GROUP BY' clause is used to group rows in a table based on the values in one or more columns.
+    -- The 'HAVING' clause is used in conjunction with GROUP BY to filter the groups based on a condition.
 select count(FIRST_NAME), JOB_ID from EMPLOYEES
 group by JOB_ID;
 
@@ -94,6 +98,7 @@ select FIRST_NAME || ' ' || LAST_NAME from EMPLOYEES;
 -- lower, upper, init cap
 select FIRST_NAME, LAST_NAME, EMAIL
 from EMPLOYEES;
+
 select lower(FIRST_NAME), upper(LAST_NAME), initcap(EMAIL)
 from EMPLOYEES;
 
@@ -139,6 +144,7 @@ select CITY, DEPARTMENT_NAME
 from LOCATIONS
          right join
      DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
 
 -- inner join --> take only matching data from two tables
 select CITY, DEPARTMENT_NAME
@@ -220,6 +226,43 @@ select * from students;
 -- two independent query
 -- data type should be same
 -- column numbers should be same
+-- union all --> return all the data, not deleting duplicated ones ,not sorting
+select name from instructors
+union all
+select name from students;
+
+
+--union --> return only unique data, and sorting
+select name,branch from instructors
+union
+select name,class from students;
+
+-- minus
+select name from instructors
+minus
+select name from students;
+
+select name from INSTRUCTORS;
+select name from students;
+
+-- intersect
+select name from instructors
+intersect
+select name from students;
+
+select * from REGIONS;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
