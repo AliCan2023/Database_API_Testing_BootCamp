@@ -76,7 +76,7 @@ group by JOB_ID
 having sum(SALARY) > 30000;
 
 
--- subquery
+-- sub-query
 -- query inside another query
 select FIRST_NAME,SALARY from EMPLOYEES
 where SALARY = (select max(SALARY) from EMPLOYEES);
@@ -86,10 +86,144 @@ select FIRST_NAME, HIRE_DATE from EMPLOYEES
 where HIRE_DATE = (Select min(HIRE_DATE) from EMPLOYEES);
 
 -- string functions
--- concatination    ||
+-- concatenation    ||
 select FIRST_NAME, LAST_NAME from EMPLOYEES;
 
 select FIRST_NAME || ' ' || LAST_NAME from EMPLOYEES;
+
+-- lower, upper, init cap
+select FIRST_NAME, LAST_NAME, EMAIL
+from EMPLOYEES;
+select lower(FIRST_NAME), upper(LAST_NAME), initcap(EMAIL)
+from EMPLOYEES;
+
+-- length
+select FIRST_NAME, length(FIRST_NAME)
+from EMPLOYEES;
+
+-- substr
+-- index number is starting from 1, NOT 0
+-- the first number is starting point
+-- second number is how much character we want
+select LAST_NAME
+from EMPLOYEES;
+select substr(LAST_NAME, 1, 3)
+from EMPLOYEES;
+
+-- view
+-- virtual table that store our results
+create view shortLastName as
+select substr(LAST_NAME, 1, 3) as shortLastName
+from EMPLOYEES;
+
+-- join
+select city
+from LOCATIONS;
+select DEPARTMENT_NAME
+from DEPARTMENTS;
+
+select CITY, DEPARTMENT_NAME
+from LOCATIONS
+         join
+     DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
+-- left join --> perform join action based on left table
+select CITY, DEPARTMENT_NAME
+from LOCATIONS
+         left join
+     DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
+
+-- right join --> perform join action based on right table
+select CITY, DEPARTMENT_NAME
+from LOCATIONS
+         right join
+     DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
+-- inner join --> take only matching data from two tables
+select CITY, DEPARTMENT_NAME
+from LOCATIONS
+         inner join
+     DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
+-- outer join --> get all the data no matter it matches or not
+select CITY, DEPARTMENT_NAME
+from LOCATIONS
+         full outer join
+     DEPARTMENTS on LOCATIONS.LOCATION_ID = DEPARTMENTS.LOCATION_ID;
+
+
+select REGION_ID, REGION_NAME from REGIONS;
+select * from COUNTRIES;
+
+select REGION_NAME, COUNTRY_NAME from REGIONS
+                                          left join COUNTRIES C2 on REGIONS.REGION_ID = C2.REGION_ID;
+
+select REGION_NAME, COUNTRY_NAME from REGIONS
+                                          right join COUNTRIES C2 on REGIONS.REGION_ID = C2.REGION_ID;
+
+
+-- DDL and DML
+-- DDL is data definition language
+-- DML is data manipulation language
+
+-- create table
+create table teachers (
+                          t_id integer primary key ,
+                          name varchar(25),
+                          branch varchar(40)
+) ;
+
+
+insert into teachers values (1,'Muhtar','Java');
+insert into teachers values (2,'Asiya','SoftSkill');
+insert into teachers values (3,'Jamal','Api');
+
+select * from teachers;
+
+
+create table students (
+                          s_id integer primary key ,
+                          name varchar(25),
+                          course varchar(40)
+) ;
+
+insert into students values (1,'Mesut','java');
+insert into students values (2,'Ahmet','Selenium');
+insert into students values (3,'Jamal','SQL');
+
+select * from students;
+
+-- update data
+update teachers
+set branch = 'sql'
+where t_id = 3;
+
+update instructors
+set branch = ''
+where t_id = 3;
+
+-- delete
+delete teachers
+where t_id=2;
+
+-- alter actions
+-- change table name
+alter table teachers rename to instructors;
+select * from instructors;
+
+-- change column name
+alter table students rename column course to class;
+select * from students;
+
+-- union
+-- two independent query
+-- data type should be same
+-- column numbers should be same
+
+
+
+
 
 
 
